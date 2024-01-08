@@ -5,6 +5,7 @@ import quasarUserOptions from './quasar-user-options'
 import router from "@/router";
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.js"
+import "bootstrap-icons/font/bootstrap-icons.css"
 
 const app = createApp(App)
 app.use(Quasar, quasarUserOptions)

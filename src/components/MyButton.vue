@@ -1,5 +1,5 @@
 <template>
-  <button class="btn btn-lg m-2 btn-primary" :class="styling" onClick="onClick">{{ label }}
+  <button class="btn btn-lg m-2 btn-primary" :class="styling">{{ label }}
     <i :class="icon"></i>
   </button>`
 </template>
@@ -9,7 +9,7 @@
 export default {
   name: "MyButtonComponent",
   props: {
-    onClick: Function,
+    //onClick: Function TODO: change to vue style,
     label: String,
     styling: String,
     icon: String
