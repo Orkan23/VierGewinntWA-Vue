@@ -1,22 +1,22 @@
 /* eslint-disable */
 <template>
-  <h1 class="text-center text-info">Willkommen zu <br> Vier Gewinnt!</h1>
   <navbar-component></navbar-component>
+  <h1 class="text-center text-info">Willkommen zu <br> Vier Gewinnt!</h1>
   <!--<div>{{ message }}</div> TODO -->
   <div class=" justify-content-center text-center  grid gap-3">
-    <MyButton @click=newGameHandler() label="Neues Spiel " styling="btn-success" icon="bi-play-circle-fill">
+    <MyButton icon="bi-play-circle-fill" label="Neues Spiel " styling="btn-success" @click=newGame(0)>
     </MyButton>
-    <MyButton @click=saveHandler() label="Speichern " icon="bi-floppy-fill">
+    <MyButton icon="bi-floppy-fill" label="Speichern " @click=save()>
     </MyButton>
-    <MyButton @click=loadHandler() label="Laden " icon="bi-cloud-download-fill">
+    <MyButton icon="bi-cloud-download-fill" label="Laden " @click=load()>
     </MyButton>
-    <MyButton label="Tipp! " icon="bi-cloud-download-fill">
+    <MyButton icon="bi-cloud-download-fill" label="Tipp! ">
     </MyButton>
   </div>
   <div class=" justify-content-center grid gap-3 text-center">
-    <MyButton @click=undoHandler() label="Undo " styling="btn-secondary" icon="bi-arrow-counterclockwise">
+    <MyButton icon="bi-arrow-counterclockwise" label="Undo " styling="btn-secondary" @click=undo()>
     </MyButton>
-    <MyButton @click=redoHandler() label="Redo " styling="btn-secondary" icon="bi-arrow-clockwise">
+    <MyButton icon="bi-arrow-clockwise" label="Redo " styling="btn-secondary" @click=redo()>
     </MyButton>
   </div>
   <div id="suggestion" class="text text-center"></div>
@@ -29,27 +29,17 @@ import GameState from "@/components/GameState.vue";
 import MyButton from "@/components/MyButton.vue";
 import NavbarComponent from "@/components/Navbar.vue";
 import GridComponent from "@/components/Grid.vue";
-import { newGame, save, update, undo, redo, load } from "@/mixin/game.js";
+import {newGame, save, undo, redo, load} from "@/controller.js";
 
 export default {
   name: "Home-View",
-  components: { NavbarComponent, MyButton, GridComponent },
+  components: {NavbarComponent, MyButton, GridComponent},
   methods: {
-    newGameHandler() {
-      newGame(0);
-    },
-    saveHandler() {
-      save();
-    },
-    loadHandler() {
-      load();
-    },
-    undoHandler() {
-      undo();
-    },
-    redoHandler() {
-      redo();
-    },
+    newGame,
+    load,
+    save,
+    undo,
+    redo,
   },
 }
 </script>

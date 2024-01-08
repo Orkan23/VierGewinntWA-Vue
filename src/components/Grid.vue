@@ -1,14 +1,25 @@
 <template>
-  <h2 v-if="data.state && data.playground.currentPlayer && data.state.includes('won')" class="text-center text-success">
-    {{ data.playground.currentPlayer.name }} you won!!</h2>
-  <h2 v-else-if="data.state && data.playground.currentPlayer" class="text-center">{{ data.state }}
-    {{ data.playground.currentPlayer.name }} it's your turn!</h2>
-  <div id="grid" class="mt-5 container-fluid text-center" style=" max-width: 500px">
+  <h2 v-if="sState && oCurrentPlayer && sState.includes('won')" class="text-center text-success">
+    {{ oCurrentPlayer.name }} you won!!</h2>
+  <h2 v-else-if="sState && oCurrentPlayer" class="text-center">{{ sState }}
+    {{ oCurrentPlayer.name }} it's your turn!</h2>
+  <div id="grid" class="mt-5 container-fluid text-center" style="max-width: 500px">
     <div v-for="i in iGridSize" :key="i">
       <div class="row d-flex justify-content-evenly">
         <div v-for="j in iGridSize" :key="j">
-          <div class="col-1">
-            <span class="col bi bi-circle-fill text" style="font-size: 2em"></span>
+          <div class="col-1" @click="playMove(i-1)">
+            <span
+                v-if="sState.includes('won')"
+                class="col bi bi-circle-fill text-success"
+                style="font-size: 2em"></span>
+            <span v-else-if="aCells[((j-1) * iGridSize + (i-1))] && aCells[((j-1) * iGridSize + (i-1))].chip === 'RED'"
+                  class="col bi bi-circle-fill text-danger"
+                  style="font-size: 2em"></span>
+            <span
+                v-else-if="aCells[((j-1) * iGridSize + (i-1))] && aCells[((j-1) * iGridSize + (i-1))].chip === 'YELLOW' "
+                class="col bi bi-circle-fill text-warning"
+                style="font-size: 2em"></span>
+            <span v-else class="col bi bi-circle-fill text" style="font-size: 2em"></span>
           </div>
         </div>
       </div>
@@ -17,6 +28,8 @@
 </template>
 
 <script>
+import {playMove} from "@/controller";
+
 export default {
   /* eslint-disable */
   name: "grid-component",
@@ -33,7 +46,15 @@ export default {
       playgroundExists: false
     }
   },
+  watch: {
+    sState(newValue) {
+      if (newValue.includes('won')) {
+        console.log("WONNNN!!")
+      }
+    }
+  },
   methods: {
+    playMove,
     connectWebSocket() {
       const webSocket = new WebSocket("ws://localhost:9000/websocket");
       webSocket.onopen = async function (event) {
@@ -77,77 +98,12 @@ export default {
       this.oCurrentPlayer = pg.currentPlayer;
       this.oOtherPlayer = pg.otherPlayer;
       this.aCells = pg.cells;
-      if (!this.playgroundExists) {
-        //this.createBlankPlayground()
-      }
-      //this.update();
     },
-
-    createBlankPlayground() {
-      this.playgroundExists = true;
-      const oGrid = document.getElementById("grid");
-      for (let iRow = 0; iRow < this.iGridSize; iRow++) {
-        const oRow = document.createElement("div")
-        oRow.className = "row d-flex justify-content-evenly"
-
-        for (let iCol = 0; iCol < this.iGridSize; iCol++) {
-          const oCellDiv = document.createElement("div");
-          oCellDiv.className = "col-1";
-          const oCellSpan = document.createElement("span");
-          oCellSpan.id = `${iRow}.${iCol}`
-          oCellSpan.className = "col bi bi-circle-fill";
-          oCellSpan.styling = "font-size: 2em";
-          oCellSpan.classList.add("text");
-
-          oCellDiv.addEventListener('click', function () {
-            this.playMove(iCol)
-          });
-          oCellDiv.appendChild(oCellSpan)
-          oRow.appendChild(oCellDiv)
-        }
-        oGrid.appendChild(oRow)
-      }
-    },
-
-    update() {
-      this.aCells.forEach((cell) => {
-        let oCell = document.getElementById(`${cell.row}.${cell.col}`);
-        oCell.classList.remove("text", "text-warning", "text-danger", "text-success")
-        switch (cell.chip) {
-          case "YELLOW":
-            oCell.classList.add("text-warning");
-            break;
-          case "RED":
-            oCell.classList.add("text-danger");
-            break;
-          default:
-            oCell.classList.add("text");
-        }
-      });
-
-      if (this.sState.includes("won")) {
-        this.fetchWinningChips();
-      }
-    },
-
-    playMove(column) {
-      fetch("/insert/" + column, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json, text/plain, */*',
-          'Content-Type': 'application/json'
-        },
-        body: "",
-      });
-    }
   },
-  watch: {},
   created() {
     this.connectWebSocket()
   },
 }
-
-
 </script>
 
 <style scoped>
@@ -184,13 +140,14 @@ body {
   max-width: 60%;
 }
 
-.text {
+.text .text-danger .text-warning {
 
   margin: 0 auto;
   padding: 1em;
 }
 
-.win {}
+.win {
+}
 
 .button {
   font-family: sans-serif;
@@ -280,7 +237,7 @@ body {
     font-size: 3em;
   }
 
-  .text {
+  .text .text-danger .text-warning {
     font-size: 0.8em;
   }
 

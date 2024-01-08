@@ -1,53 +1,6 @@
 /* eslint-disable */
-export function createBlankPlayground() {
-    this.playgroundExists = true;
-    const oGrid = document.getElementById("grid");
-    for (let iRow = 0; iRow < this.iGridSize; iRow++) {
-        const oRow = document.createElement("div")
-        oRow.className = "row d-flex justify-content-evenly"
-
-        for (let iCol = 0; iCol < this.iGridSize; iCol++) {
-            const oCellDiv = document.createElement("div");
-            oCellDiv.className = "col-1";
-            const oCellSpan = document.createElement("span");
-            oCellSpan.id = `${iRow}.${iCol}`
-            oCellSpan.className = "col bi bi-circle-fill";
-            oCellSpan.style = "font-size: 2em";
-            oCellSpan.classList.add("text");
-
-            oCellDiv.addEventListener('click', function () {
-                playMove(iCol)
-            });
-            oCellDiv.appendChild(oCellSpan)
-            oRow.appendChild(oCellDiv)
-        }
-        oGrid.appendChild(oRow)
-    }
-}
-
-export function update() {
-    this.aCells.forEach((cell) => {
-        let oCell = document.getElementById(`${cell.row}.${cell.col}`);
-        oCell.classList.remove("text", "text-warning", "text-danger", "text-success")
-        switch (cell.chip) {
-            case "YELLOW":
-                oCell.classList.add("text-warning");
-                break;
-            case "RED":
-                oCell.classList.add("text-danger");
-                break;
-            default:
-                oCell.classList.add("text");
-        }
-    });
-
-    if (this.sState.includes("won")) {
-        this.fetchWinningChips();
-    }
-}
-
-function playMove(column) {
-    fetch("http/localhost:900/insert/" + column, {
+export function playMove(column) {
+    fetch("http://localhost:9000/insert/" + column, {
         method: 'POST',
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -59,7 +12,7 @@ function playMove(column) {
 
 export function newGame(type) {
     console.log('newGame')
-    fetch(`http/localhost:900/newGame/${type}`, {
+    fetch(`http://localhost:9000/newGame/${type}`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -70,7 +23,7 @@ export function newGame(type) {
 }
 
 export function load() {
-    fetch(`http/localhost:900/load`, {
+    fetch(`http://localhost:9000/load`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -81,7 +34,7 @@ export function load() {
 }
 
 export function save() {
-    fetch(`http/localhost:900/save`, {
+    fetch(`http://localhost:9000/save`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -92,7 +45,7 @@ export function save() {
 }
 
 export function undo() {
-    fetch(`http/localhost:900/undo`, {
+    fetch(`http://localhost:9000/undo`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -103,7 +56,7 @@ export function undo() {
 }
 
 export function redo() {
-    fetch(`http/localhost:900/redo`, {
+    fetch(`http://localhost:9000/redo`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -114,7 +67,7 @@ export function redo() {
 }
 
 export function fetchWinningChips() {
-    fetch(`http/localhost:900/winnerChips`, {
+    fetch(`http://localhost:9000/winnerChips`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -154,33 +107,6 @@ export function winAnimation(aChips) {
     }, 5000);
 }
 
-function _parsePlayground(data) {
-    const pg = data.playground;
-    this.data = data;
-    this.sState = data.state;
-    this.iGridSize = pg.size;
-    this.iGametype = pg.gameType;
-    this.oCurrentPlayer = pg.currentPlayer;
-    this.oOtherPlayer = pg.otherPlayer;
-    this.aCells = pg.cells;
-    if (!this.playgroundExists) {
-        this.createBlankPlayground()
-    }
-    this.update();
-}
-
-function showToast(message) {
-    var toast = document.createElement("div");
-    toast.className = "toast";
-    toast.innerHTML = "abc";
-
-    document.body.appendChild(toast);
-
-    setTimeout(function () {
-        document.body.removeChild(toast);
-    }, 4000);
-}
-
 function suggestion() {
     fetch(`http://localhost:3000/api/suggestions`, {
         method: 'POST',
@@ -194,22 +120,4 @@ function suggestion() {
         let oElement = document.getElementById("suggestion");
         oElement.innerHTML = `AI suggests Player ${data.player} to play column: ${data.suggestedColumn}`
     }));
-}
-
-export async function handleSocketMessages(event) {
-    let data = {};
-
-    if (typeof event.data === "string") {
-        try {
-            data = await JSON.parse(event.data)
-            _parsePlayground(data)
-        } catch (e) {
-        }
-    } else if (event.data instanceof ArrayBuffer) {
-        console.log('ArrayBuffer received: ' + event.data);
-    } else if (event.data instanceof Blob) {
-        console.log('Blob received: ' + event.data);
-    }
-
-    return data;
 }
