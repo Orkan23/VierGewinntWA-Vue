@@ -1,26 +1,28 @@
 /* eslint-disable */
 <template>
-  <navbar-component></navbar-component>
-  <h1 class="text-center text-info">Willkommen zu <br> Vier Gewinnt!</h1>
-  <!--<div>{{ message }}</div> TODO -->
-  <div class=" justify-content-center text-center  grid gap-3">
-    <MyButton icon="bi-play-circle-fill" label="Neues Spiel " styling="btn-success" @click=newGame(0)>
-    </MyButton>
-    <MyButton icon="bi-floppy-fill" label="Speichern " @click=save()>
-    </MyButton>
-    <MyButton icon="bi-cloud-download-fill" label="Laden " @click=load()>
-    </MyButton>
-    <MyButton icon="bi-cloud-download-fill" label="Tipp! ">
-    </MyButton>
+  <div class="fullscreen">
+    <navbar-component></navbar-component>
+    <!--<div>{{ message }}</div> TODO -->
+    <div class=" justify-content-center text-center  grid gap-3">
+      <MyButton icon="bi-play-circle-fill" label="Neues Spiel " styling="btn-success" @click=newGame(0)>
+      </MyButton>
+      <MyButton icon="bi-floppy-fill" label="Speichern " @click=save()>
+      </MyButton>
+      <MyButton icon="bi-cloud-download-fill" label="Laden " @click=load()>
+      </MyButton>
+      <MyButton icon="bi-cloud-download-fill" label="Tipp! ">
+      </MyButton>
+    </div>
+    <div class=" justify-content-center grid gap-3 text-center">
+      <MyButton icon="bi-arrow-counterclockwise" label="Undo " styling="btn-secondary" @click=undo()>
+      </MyButton>
+      <MyButton icon="bi-arrow-clockwise" label="Redo " styling="btn-secondary" @click=redo()>
+      </MyButton>
+    </div>
+    <div id="suggestion" class="text text-center"></div>
+    <grid-component></grid-component>
+
   </div>
-  <div class=" justify-content-center grid gap-3 text-center">
-    <MyButton icon="bi-arrow-counterclockwise" label="Undo " styling="btn-secondary" @click=undo()>
-    </MyButton>
-    <MyButton icon="bi-arrow-clockwise" label="Redo " styling="btn-secondary" @click=redo()>
-    </MyButton>
-  </div>
-  <div id="suggestion" class="text text-center"></div>
-  <grid-component></grid-component>
 </template>
 
 <script>
