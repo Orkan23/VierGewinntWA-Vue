@@ -57,8 +57,8 @@ function playMove(column) {
     });
 }
 
-function newGame(type) {
-    this.showToast('abc')
+export function newGame(type) {
+    console.log('newGame')
     fetch(`/newGame/${type}`, {
         method: 'POST',
         headers: {

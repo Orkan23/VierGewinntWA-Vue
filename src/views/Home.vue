@@ -4,7 +4,7 @@
   <navbar-component></navbar-component>
   <!--<div>{{ message }}</div> TODO -->
   <div class=" justify-content-center text-center  grid gap-3">
-    <MyButton label="Neues Spiel " styling="btn-success" icon="bi-play-circle-fill">
+    <MyButton onClick="newGameHandler" label="Neues Spiel " styling="btn-success" icon="bi-play-circle-fill">
     </MyButton>
     <MyButton label="Speichern " icon="bi-floppy-fill">
     </MyButton>
@@ -29,10 +29,16 @@ import GameState from "@/components/GameState.vue";
 import MyButton from "@/components/MyButton.vue";
 import NavbarComponent from "@/components/Navbar.vue";
 import GridComponent from "@/components/Grid.vue";
+import { newGame } from "@/mixin/game.js";
 
 export default {
   name: "Home-View",
-  components: { NavbarComponent, MyButton, GridComponent }
+  components: { NavbarComponent, MyButton, GridComponent },
+  functions: {
+    newGameHandler() {
+      newGame(0);
+    },
+  },
 }
 </script>
 

@@ -4,7 +4,6 @@
   <h2 v-else-if="data.state && data.playground.currentPlayer" class="text-center">{{ data.state }}
     {{ data.playground.currentPlayer.name }} it's your turn!</h2>
   <div id="grid" class="mt-5 container-fluid text-center" style=" max-width: 500px">
-
     <div v-for="i in iGridSize" :key="i">
       <div class="row d-flex justify-content-evenly">
         <div v-for="j in iGridSize" :key="j">
@@ -198,7 +197,7 @@ body {
   padding: 0.5em 1em;
   border-radius: 0.5em;
 
-  background-color: var(--yellow);
+  background-color: #ff9e;
 
   cursor: pointer;
   margin: 1em;
@@ -229,7 +228,7 @@ body {
 }
 
 #insertButtons {
-  background-color: var(--red);
+  background-color: #ff7373;
 
 }
 
