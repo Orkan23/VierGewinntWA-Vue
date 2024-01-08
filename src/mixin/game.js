@@ -1,5 +1,5 @@
 /* eslint-disable */
-function createBlankPlayground() {
+export function createBlankPlayground() {
     this.playgroundExists = true;
     const oGrid = document.getElementById("grid");
     for (let iRow = 0; iRow < this.iGridSize; iRow++) {
@@ -25,7 +25,7 @@ function createBlankPlayground() {
     }
 }
 
-function update() {
+export function update() {
     this.aCells.forEach((cell) => {
         let oCell = document.getElementById(`${cell.row}.${cell.col}`);
         oCell.classList.remove("text", "text-warning", "text-danger", "text-success")
@@ -47,7 +47,7 @@ function update() {
 }
 
 function playMove(column) {
-    fetch("/insert/" + column, {
+    fetch("http/localhost:900/insert/" + column, {
         method: 'POST',
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -59,7 +59,7 @@ function playMove(column) {
 
 export function newGame(type) {
     console.log('newGame')
-    fetch(`/newGame/${type}`, {
+    fetch(`http/localhost:900/newGame/${type}`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -69,8 +69,8 @@ export function newGame(type) {
     });
 }
 
-function load() {
-    fetch(`/load`, {
+export function load() {
+    fetch(`http/localhost:900/load`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -80,8 +80,8 @@ function load() {
     });
 }
 
-function save() {
-    fetch(`/save`, {
+export function save() {
+    fetch(`http/localhost:900/save`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -91,8 +91,8 @@ function save() {
     });
 }
 
-function undo() {
-    fetch(`/undo`, {
+export function undo() {
+    fetch(`http/localhost:900/undo`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -102,8 +102,8 @@ function undo() {
     });
 }
 
-function redo() {
-    fetch(`/redo`, {
+export function redo() {
+    fetch(`http/localhost:900/redo`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -113,8 +113,8 @@ function redo() {
     });
 }
 
-function fetchWinningChips() {
-    fetch(`/winnerChips`, {
+export function fetchWinningChips() {
+    fetch(`http/localhost:900/winnerChips`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -123,7 +123,7 @@ function fetchWinningChips() {
     }).then(response => response.json().then((data) => this.winAnimation(data)));
 }
 
-function winAnimation(aChips) {
+export function winAnimation(aChips) {
     const iPlayer = aChips.values[0];
     const aChipCoordinates = aChips.values.splice(1, 4);
 
