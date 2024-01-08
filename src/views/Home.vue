@@ -4,7 +4,7 @@
   <navbar-component></navbar-component>
   <!--<div>{{ message }}</div> TODO -->
   <div class=" justify-content-center text-center  grid gap-3">
-    <MyButton onClick="newGameHandler" label="Neues Spiel " styling="btn-success" icon="bi-play-circle-fill">
+    <MyButton onClick=newGameHandler() label="Neues Spiel " styling="btn-success" icon="bi-play-circle-fill">
     </MyButton>
     <MyButton label="Speichern " icon="bi-floppy-fill">
     </MyButton>

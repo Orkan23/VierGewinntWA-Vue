@@ -1,6 +1,6 @@
 
 <template>
-  <button @click="onClick" class="btn btn-lg m-2 btn-primary" :class="styling">{{ label }}
+  <button @click="handleButtonClick" class="btn btn-lg m-2 btn-primary" :class="styling">{{ label }}
     <i :class="icon"></i>
   </button>
 </template>
@@ -16,7 +16,15 @@ export default {
     styling: String,
     icon: String
   },
-
+  methods: {
+    handleButtonClick() {
+      if (typeof this.onClick === 'function') {
+        this.onClick();
+      } else {
+        console.log('onClick is of type ' + typeof this.onClick);
+      }
+    },
+  },
 }
 </script>
 

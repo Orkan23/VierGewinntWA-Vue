@@ -5,7 +5,7 @@
         <i class="bi bi-controller"></i>
         VierGewinnt
       </a>
-      <a class="navbar-brand" href="/gameIntro">
+      <a class="navbar-brand" href="/About">
         <i class="bi bi-info-square"></i>
         Regeln
       </a>
