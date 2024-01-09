@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-md q-gutter-sm">
-    <q-banner inline-actions rounded class="bg-blue text-white">
-      <span style="font-size: 20px;">Willkommen zu Vier Gewinnt!</span>
+    <q-banner inline-actions rounded class="bg-deep-purple-10 text-white">
+      <span style="font-size: 40px;">{{ label }}</span>
       <template v-slot:action>
         <q-btn flat label="VierGewinnt" @click="navigateToVierGewinnt">
           <i class="bi bi-controller"></i>
@@ -17,6 +17,9 @@
 <script>
 export default {
   name: "NavbarComponent",
+  props: {
+    label: String,
+  },
   methods: {
     navigateToVierGewinnt() {
       this.$router.push('/');

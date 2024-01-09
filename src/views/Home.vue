@@ -1,7 +1,7 @@
 /* eslint-disable */
 <template>
   <div class="fullscreen">
-    <navbar-component></navbar-component>
+    <navbar-component label="Willkommen zu Vier Gewinnt!"></navbar-component>
     <!--<div>{{ message }}</div> TODO -->
     <div class=" justify-content-center text-center  grid gap-3">
       <MyButton icon="bi-play-circle-fill" label="Neues Spiel " styling="btn-success" @click=newGame(0)>

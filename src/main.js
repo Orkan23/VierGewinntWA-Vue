@@ -8,6 +8,6 @@ import "bootstrap/dist/js/bootstrap.js"
 import "bootstrap-icons/font/bootstrap-icons.css"
 
 const app = createApp(App)
-app.use(Quasar, quasarUserOptions)
+app.use(Quasar, quasarUserOptions, { config: {} })
 app.use(router)
 app.mount('#app')
