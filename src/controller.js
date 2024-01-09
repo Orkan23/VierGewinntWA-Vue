@@ -66,14 +66,15 @@ export function redo() {
     });
 }
 
-export function fetchWinningChips() {
-    fetch(`http://localhost:9000/winnerChips`, {
+export async function fetchWinningChips() {
+    const response = await fetch(`http://localhost:9000/winnerChips`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'application/json'
         }
-    }).then(response => response.json().then((data) => this.winAnimation(data)));
+    });
+    return await response.json();
 }
 
 export function winAnimation(aChips) {
