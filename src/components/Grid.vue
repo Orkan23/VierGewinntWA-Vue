@@ -7,9 +7,9 @@
     <div v-for="i in iGridSize" :key="i">
       <div class="row d-flex justify-content-evenly">
         <div v-for="j in iGridSize" :key="j">
-          <div class="col-1" @click="playMove(i-1)">
+          <div class="col-1" :class="{ shake: disabled }" @click="playMove(i-1) ">
             <span
-                v-if="sState.includes('won')"
+                v-if="winCheck(i,j)"
                 class="col bi bi-circle-fill text-success"
                 style="font-size: 2em"></span>
             <span v-else-if="aCells[((j-1) * iGridSize + (i-1))] && aCells[((j-1) * iGridSize + (i-1))].chip === 'RED'"
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import {playMove} from "@/controller";
+import {fetchWinningChips, playMove} from "@/controller";
 
 export default {
   /* eslint-disable */
@@ -43,13 +43,24 @@ export default {
       oCurrentPlayer: {},
       oOtherPlayer: {},
       aCells: [],
-      playgroundExists: false
+      playgroundExists: false,
+      disabled: false,
+      winningChips: {},
+      winCheck: function (i, j) {
+        return false;
+      }.bind(this)
     }
   },
   watch: {
-    sState(newValue) {
+    async sState(newValue) {
       if (newValue.includes('won')) {
-        console.log("WONNNN!!")
+        this.winningChips = await fetchWinningChips();
+
+        this.disabled = true
+        setTimeout(() => {
+          this.disabled = false
+        }, 3000)
+        this.winningChips = undefined
       }
     }
   },
@@ -230,6 +241,34 @@ body {
   justify-items: center;
   width: 50%;
   height: 22em;
+}
+
+.shake {
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
 }
 
 @media screen and (max-width: 767px) {

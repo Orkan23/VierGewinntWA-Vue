@@ -1,42 +1,76 @@
 <template>
   <div class="fullscreen scroll text-center" style="background-color: #1b1e36;">
-  <navbar-component label="VierGewinnt - Regeln"></navbar-component>
+    <navbar-component label="VierGewinnt - Regeln"></navbar-component>
+
+
+    <div class="q-px-lg q-py-md">
+      <q-timeline class ="bg-deep-purple-10 text-white">
+
+
+        <q-timeline-entry heading>
+          Spielplan
+        </q-timeline-entry>
+
+        <q-timeline-entry
+            subtitle="- Wie vorzugehen -"
+            color="orange"
+
+        >
+          <div>
+            Es gibt zwei verschiedene Spielsteine, meist in den Farben Rot und Gelb.
+          </div>
+        </q-timeline-entry>
+
+        <q-timeline-entry
+        >
+          <div>
+            Das Ziel ist es, als erster Spieler vier seiner eigenen Spielsteine in einer horizontalen, vertikalen oder diagonalen Reihe zu platzieren.
+          </div>
+        </q-timeline-entry>
+
+
+        <q-timeline-entry
+        >
+          <div>
+            Das Spiel endet, wenn ein Spieler vier seiner Spielsteine in einer Reihe platziert hat.
+          </div>
+        </q-timeline-entry>
+
+        <q-timeline-entry
+        >
+          <div>
+            Wenn das Spielbrett voll ist und keiner der Spieler vier Steine in einer Reihe hat, endet das Spiel unentschieden.
+          </div>
+        </q-timeline-entry>
+      </q-timeline>
+    </div>
+
+
+
 
 
     <div class="q-pa-md">
       <q-card class="my-card">
-               <q-card-section>
+        <q-card-section>
           <div class="text-h5 text-center"> -Spielplan-</div>
-                 <br>
-                 <ul class="list-styled">
-                 <div class="text-subtitle2 text-center">Es gibt zwei verschiedene Spielsteine, meist in den Farben Rot und Gelb. Das Ziel ist es, als erster Spieler vier seiner eigenen Spielsteine in einer horizontalen, vertikalen oder diagonalen Reihe zu platzieren. Das Spiel endet, wenn ein Spieler vier seiner Spielsteine in einer Reihe platziert hat. Diese Reihe kann horizontal, vertikal oder diagonal verlaufen. Wenn das Spielbrett voll ist und keiner der Spieler vier Steine in einer Reihe hat, endet das Spiel unentschieden.</div>
-                 </ul>
-               </q-card-section>
+          <br>
+          <ul class="list-styled">
+            <div class="text-subtitle2 text-center">Es gibt zwei verschiedene Spielsteine, meist in den Farben Rot und Gelb. Das Ziel ist es, als erster Spieler vier seiner eigenen Spielsteine in einer horizontalen, vertikalen oder diagonalen Reihe zu platzieren. Das Spiel endet, wenn ein Spieler vier seiner Spielsteine in einer Reihe platziert hat. Diese Reihe kann horizontal, vertikal oder diagonal verlaufen. Wenn das Spielbrett voll ist und keiner der Spieler vier Steine in einer Reihe hat, endet das Spiel unentschieden.</div>
+          </ul>
+        </q-card-section>
       </q-card>
     </div>
 
 
-    <div class="q-pa-md" style="display: center; flex-direction: column; ">
-      <q-carousel
-          animated
-          v-model="slide"
-          arrows
-          navigation
-          infinite
-          style="background-color: black; max-width: 60%"
-      >
-        <q-carousel-slide :name="1" img-src="https://images.brettspielnetz.de/spelregels/4rij/leegbord.gif" style="max-width: 50%" />
-        <q-carousel-slide :name="2" img-src="https://images.brettspielnetz.de/spelregels/4rij/eensteen.gif" style="max-width: 50%" />
-        <q-carousel-slide :name="3" img-src="https://images.brettspielnetz.de/spelregels/4rij/image010.gif" style="max-width: 50%" />
-      </q-carousel>
-    </div>
 
 
-    <div class="q-pa-md text-center" style="max-width: 60%">
+    <div class="q-pa-md" style="">
       <q-video
-          :ratio="16/9"
           :src="youtubeEmbedUrl"
-          class="text-center"
+          :ratio="4/3"
+          class="center"
+          frameborder="0"
+          allowfullscreen
       />
     </div>
   </div>
