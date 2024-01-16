@@ -7,7 +7,7 @@ export function playMove(column) {
             'Content-Type': 'application/json'
         },
         body: "",
-    });
+    }).catch((error) => {alert("keine Verbindung zum Server")});
 }
 
 export function newGame(type) {
@@ -19,7 +19,7 @@ export function newGame(type) {
             'Content-Type': 'application/json'
         },
         body: "",
-    });
+    }).catch((error) => {alert("keine Verbindung zum Server")});
 }
 
 export function load() {
@@ -30,7 +30,7 @@ export function load() {
             'Content-Type': 'application/json'
         },
         body: "",
-    });
+    }).catch((error) => {alert("keine Verbindung zum Server")});
 }
 
 export function save() {
@@ -41,7 +41,7 @@ export function save() {
             'Content-Type': 'application/json'
         },
         body: "",
-    });
+    }).catch((error) => {alert("keine Verbindung zum Server")});
 }
 
 export function undo() {
@@ -52,7 +52,7 @@ export function undo() {
             'Content-Type': 'application/json'
         },
         body: "",
-    });
+    }).catch((error) => {alert("keine Verbindung zum Server")});
 }
 
 export function redo() {
@@ -63,7 +63,7 @@ export function redo() {
             'Content-Type': 'application/json'
         },
         body: "",
-    });
+    }).catch((error) => {alert("keine Verbindung zum Server")});
 }
 
 export async function fetchWinningChips() {
@@ -120,5 +120,5 @@ function suggestion() {
     }).then(response => response.json().then((data) => {
         let oElement = document.getElementById("suggestion");
         oElement.innerHTML = `AI suggests Player ${data.player} to play column: ${data.suggestedColumn}`
-    }));
+    })).catch((error) => {alert("keine Verbindung zum Server")});
 }
