@@ -11,7 +11,7 @@ export async function playMove(column) {
 
     if (this && this.oCurrentPlayer && this.oCurrentPlayer.name === "Player 2" && this.data) {
         const move = await playAI(JSON.stringify(this.data));
-        await playMove(move["col"] - 1)
+        await playMove(move["col"])
     }
 }
 
