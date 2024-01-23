@@ -1,6 +1,6 @@
 /* eslint-disable */
-export function playMove(column) {
-    fetch("http://localhost:9000/insert/" + column, {
+export async function playMove(column) {
+    await fetch("http://localhost:9000/insert/" + column, {
         method: 'POST',
         headers: {
             'Accept': 'application/json, text/plain, */*',
@@ -8,6 +8,11 @@ export function playMove(column) {
         },
         body: "",
     });
+
+    if (this && this.oCurrentPlayer && this.oCurrentPlayer.name === "Player 2" && this.data) {
+        const move = await playAI(JSON.stringify(this.data));
+        await playMove(move["col"] - 1)
+    }
 }
 
 export function newGame(type) {
@@ -121,4 +126,18 @@ function suggestion() {
         let oElement = document.getElementById("suggestion");
         oElement.innerHTML = `AI suggests Player ${data.player} to play column: ${data.suggestedColumn}`
     }));
+}
+
+export async function playAI(dataPg) {
+    const result = await fetch(`http://localhost:3000/api/playAI`, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+        },
+        body: dataPg
+    });
+
+    return JSON.parse(await result.json());
 }

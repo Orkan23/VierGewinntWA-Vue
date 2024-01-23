@@ -79,7 +79,7 @@ export default {
         console.log("Error" + error + "occurred");
       }
       webSocket.onmessage = async function (event) {
-        this.dataset = await this.handleSocketMessages(event);
+        await this.handleSocketMessages(event);
       }.bind(this)
     },
 
@@ -88,7 +88,7 @@ export default {
 
       if (typeof event.data === "string") {
         try {
-          data = await JSON.parse(event.data)
+          data = JSON.parse(event.data)
           this.parsePlayground(data)
         } catch (e) {
           console.log(e)
